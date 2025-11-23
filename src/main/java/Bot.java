@@ -47,7 +47,7 @@ public class Bot {
                                 + "/deleteBirthday - удалить день рождения из базы\n"
                                 + "/поздравь - получить сгенерированное поздравление\n");
                     } else {
-                        handleCommand(bot, chatId, messageText, dbManager, apiToken);
+                        handleCommand(bot, chatId, messageText, dbManager, apiToken, userName);
                     }
                 }
             }
@@ -55,7 +55,8 @@ public class Bot {
         });
     }
 
-    private static void handleCommand(TelegramBot bot, Long chatId, String command, DatabaseManager dbManager, String apiToken) {
+    private static void handleCommand(TelegramBot bot, Long chatId, String command,
+                                      DatabaseManager dbManager, String apiToken, String userName) {
         String userState = userStates.get(chatId);
 
         if (userState != null) {
@@ -146,10 +147,8 @@ public class Bot {
                 }
                 break;
             case "/поздравь":
-                sendMessage(bot, chatId, "Генерируем поздравление... Пожалуйста, подождите.");
-                String prompt = "Поздравление с днем рождения";
-                String jsonResponse = generateGreeting(prompt, apiToken);
-                String greeting = parseGeneratedText(jsonResponse);
+                sendMessage(bot, chatId, "🎉 Генерируем поздравление... Пожалуйста, подождите.");
+                String greeting = RuGPT3Generator.generateGreeting(apiToken, userName);
                 sendMessage(bot, chatId, greeting);
                 break;
 
