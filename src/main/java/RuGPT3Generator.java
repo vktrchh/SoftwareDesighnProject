@@ -95,7 +95,7 @@ public class RuGPT3Generator {
         }
     }
     //вопросы ко мне есть?&
-    private static String getFallbackGreeting(String userName) {
+    public static String getFallbackGreeting(String userName) {
         String[] greetings = {
                 " Поздравляю, " + userName + "! Желаю здоровья, счастья и процветания! ",
                 " " + userName + ", с днём рождения! Пусть твой день будет наполнен радостью и улыбками! ",
